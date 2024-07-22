@@ -416,6 +416,9 @@ define(function () {
                         output_non_suit = data.filter(function (x) { return x["BECvar_site"] == bec_name && x["HTp_pred"] >= suit});       
                         console.log(results);
 
+                        if (results.length == 0) { alert("No results available for those parameters"); }
+
+
                         updateData(results).then(function (data) {
                             console.log(data);
                             populateCutblockTable(data);
