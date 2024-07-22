@@ -20,7 +20,6 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: Calibri;
-
 }
 
 .uploadExpand {
@@ -30,7 +29,7 @@ html, body {
 }
 
 #leftCol {
-  max-height: 100vh;
+  max-height: 300vh;
   overflow: auto;
 }
 
@@ -70,6 +69,10 @@ html, body {
     overflow: auto;
     margin: 0 auto;
     white-space: nowrap;
+}
+
+#myTabContent {
+    height: 500px;
 }
 
 

@@ -276,24 +276,45 @@ define(function () {
         updateData: updateData,
     };
 
+
+    function filterUniqueByColumn(data, column) {
+        const seen = new Set();
+        return data.filter(row => {
+            const value = row[column];
+            if (seen.has(value)) {
+                return false;
+            } else {
+                seen.add(value);
+                return true;
+            }
+        });
+    }
+
+
     // adds all the options to the Species and BEC Variant dropdowns
     function fillSelects() {
 
         let data = new Promise((resolve, reject) => {
             var test_data;
             var speciesStore_json = "scripts/min_gen_suit_11.json";
-    
-            $.getJSON(speciesStore_json, function (data) {
-                speciesStore = data;
-                // change all the "name" to upper case
-                for (var i = 0; i < speciesStore.length; i++) {
-                    speciesStore[i].name = speciesStore[i].name.toUpperCase();
-                    speciesStore[i].minsuit = speciesStore[i].minsuit * 100;
+            var becStore_json = "Version_7_0/PL_migrated_height_list_5.json";
+
+            $.getJSON(becStore_json, function (data) {
+                becStore = data;
+                // console.log(data);
+
+                // filter the data to only show the unique values for BECvar_site
+                becStore = filterUniqueByColumn(becStore, "BECvar_site");
+
+                // for each item in the becStore, add a new data field called id and set it to the index of the item
+                for (var i = 0; i < becStore.length; i++) {
+                    becStore[i].id = i;
+                    becStore[i].name = becStore[i].BECvar_site;
+
                 }
                 
-                console.log(speciesStore);
-                
-
+                console.log(becStore);
+            
                 for (const i in becStore) {
                     const temp = document.createElement("option");
                     temp.label = becStore[i].name;
@@ -306,6 +327,23 @@ define(function () {
                     document.getElementById("becInputCutblock").options.add(temp);
                     document.getElementById("becInputSeedlot").options.add(temp3);
                 }
+
+            });
+
+
+    
+            $.getJSON(speciesStore_json, function (data) {
+                speciesStore = data;
+                // change all the "name" to upper case
+                for (var i = 0; i < speciesStore.length; i++) {
+                    speciesStore[i].name = speciesStore[i].name.toUpperCase();
+                    speciesStore[i].minsuit = speciesStore[i].minsuit * 100;
+                }
+                
+                console.log(speciesStore);
+                
+
+
                 for (const j in speciesStore) {
                     const temp2 = document.createElement("Option");
                     temp2.value = speciesStore[j].name;
@@ -714,7 +752,7 @@ define(function () {
 
                 // find the name in becStore associated to the bec id chosen 
                 var bec_name = becStore.find(x => x.id == bec).name;
-                var results = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit && x["Sp_suit_site"] >= spmin });
+                var results = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit });
                 console.log(results);
 
                 // updateData(results).then(function (data) {
@@ -723,8 +761,8 @@ define(function () {
                 
 
                 // 1 means the area is suitable and 0 means it is not a suitable area
-                output_suit = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit && x["Sp_suit_site"] == 1});
-                output_non_suit = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit && x["Sp_suit_site"] == 0});
+                output_suit = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit });
+                output_non_suit = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit });
 
                 // output_suit_2019 = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred_2019"] >= suit && x["Sp_suit_site_2019"] == 1});
                 // output_non_suit_2019 = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred_2019"] >= suit && x["Sp_suit_site_2019"] == 0});

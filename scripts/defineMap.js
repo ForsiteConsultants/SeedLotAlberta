@@ -86,7 +86,7 @@ define([
         });
         
         //Create a new map view and add the map to it
-        xy = [-125.877, 54];
+        xy = [-113.877, 54];
         // xy = [-119.877, 51.674]; // older model
         view = new MapView({
             center: xy,

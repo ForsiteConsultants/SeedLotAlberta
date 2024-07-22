@@ -51,14 +51,14 @@ require([
                 });
             });
             
-    document.getElementById("addSeedlotfromOrchard")
-            .addEventListener("click", function () {
-                main.populateSeedlot(document.getElementById("orchardNumber").value);
-            });
-    document.getElementById("addSpeciesBecSeedlot")
-            .addEventListener("click", function () {
-                main.populateSpeciesBEC(document.getElementById("seedlotNumber").value);
-            });
+    // document.getElementById("addSeedlotfromOrchard")
+    //         .addEventListener("click", function () {
+    //             main.populateSeedlot(document.getElementById("orchardNumber").value);
+    //         });
+    // document.getElementById("addSpeciesBecSeedlot")
+    //         .addEventListener("click", function () {
+    //             main.populateSpeciesBEC(document.getElementById("seedlotNumber").value);
+    //         });
             
 
     
