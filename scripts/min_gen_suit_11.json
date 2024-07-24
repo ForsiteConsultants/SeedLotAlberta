@@ -1,6 +1,18 @@
 [
     {
+      "name": "Pj",
+      "minsuit": 0.975
+    },
+	{
       "name": "Pl",
+      "minsuit": 0.975
+    },
+	{
+      "name": "Sb",
+      "minsuit": 0.975
+    },
+	{
+      "name": "Sw",
       "minsuit": 0.975
     },
     {
