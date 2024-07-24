@@ -385,7 +385,7 @@ define(function () {
         window.dat = becStore;
         console.log(bec)
         
-        // getSeedLot(bec, suit, 0, jsonseedlot);
+        getSeedLot(bec, suit, 0, jsonseedlot);
 
         outlist_suit = [];
         outlist_non_suit = [];
@@ -719,8 +719,7 @@ define(function () {
             columns: [
                 { data: "BECvar_site" },
                 { data: "BECvar_seed" },
-                { data: "HTp_pred" },
-                { data: "Limit" }
+                { data: "HTp_pred" }
             ]
         });
 
