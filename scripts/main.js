@@ -370,7 +370,8 @@ define(function () {
         // console.log(sp, bec);
         // console.log("Cutblock Go button. Species: " + sp + " BEC: " + bec); // debug
         jsontxt = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1).toLowerCase() + "_migrated_height_list_5.json";
-        jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
+        // jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
+        jsonseedlot = "Version_7_0/orchard_seedzone_assignments_1.json";
 
         
         console.log(sp)
@@ -579,7 +580,7 @@ define(function () {
 
     function getSeedLot(bec, spmin, min, jsonseedlot) {
         // bec, spmin, 0, jsonseedlot
-        // console.log(spmin);
+        console.log(spmin);
 
         $.getJSON(jsonseedlot, function (data) {
 
@@ -590,10 +591,13 @@ define(function () {
             console.log("IN GETSEEDLOT");
 
             if (bec.length == 1) {
-                console.log("this shouldn't trigger")
+                console.log("One item selected")
                 bec_name = becStore.find(x => x.id == bec).name;
-                results = data.filter(function (x) { return x["BECvar_site"] == bec_name && x["MigrationDistance"] >= spmin});
+                console.log(bec_name);
+                results = data.filter(function (x) { return x["seedzone"] == bec_name });
+                console.log(data)
                 finalarray = results;
+                console.log(finalarray);
                 for (var i = 0; i < finalarray.length; i++) {
                     if (finalarray[i].Seedlot == "") {
                         finalarray[i].Seedlot = 0;
@@ -603,7 +607,7 @@ define(function () {
                     }
                 }
             } else {
-                console.log("this should trigger")
+                console.log("Multiple items selected")
                 console.log(bec.length);
                 for (var i = 0; i < bec.length; i++) {
                     bec_name = becStore.find(x => x.id == bec[i]).name;
@@ -636,11 +640,9 @@ define(function () {
                 destroy: true,
                 data: finalarray,
                 columns: [
-                    { data: "Seedlot" },
+                    { data: "seedzone" },
                     { data: "Orchard" },
-                    { data: "GW" },
-                    { data: "GeneticClass" },
-                    { data: "BECvar_seed" }
+                    { data: "Sp" },
                 ]
             });
         })
@@ -679,8 +681,7 @@ define(function () {
             columns: [
                 { data: "BECvar_site" },
                 { data: "BECvar_seed" },
-                { data: "HTp_pred" },
-                { data: "Limit" }
+                { data: "HTp_pred" }
             ]
         });
 
@@ -757,9 +758,9 @@ define(function () {
                 var results = data.filter(function (x) { return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit });
                 console.log(results);
 
-                // updateData(results).then(function (data) {
-                //     populateSeedlotTable(data);
-                // });
+                updateData(results).then(function (data) {
+                    populateSeedlotTable(data);
+                });
                 
 
                 // 1 means the area is suitable and 0 means it is not a suitable area
