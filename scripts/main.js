@@ -370,7 +370,7 @@ define(function () {
         // console.log(sp, bec);
         // console.log("Cutblock Go button. Species: " + sp + " BEC: " + bec); // debug
         jsontxt = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1).toLowerCase() + "_migrated_height_list_5.json";
-        // jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
+        jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
 
         
         console.log(sp)
