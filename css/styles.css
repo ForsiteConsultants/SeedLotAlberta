@@ -29,7 +29,7 @@ html, body {
 }
 
 #leftCol {
-  max-height: 300vh;
+  max-height: 500vh;
   overflow: auto;
 }
 
@@ -72,7 +72,7 @@ html, body {
 }
 
 #myTabContent {
-    height: 500px;
+    height: 700px;
 }
 
 
