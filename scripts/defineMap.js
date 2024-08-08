@@ -42,7 +42,7 @@ define([
     var portalUrl = "https://www.arcgis.com";
     
     template = {
-        title : "Selected {MAP_Label}",
+        title : "Selected {seedname}",
     };
 
 
