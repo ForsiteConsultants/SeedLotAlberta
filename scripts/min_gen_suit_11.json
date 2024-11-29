@@ -1,22 +1,26 @@
 [
-    {
-      "name": "Pj",
-      "minsuit": 0.975
-    },
-	{
-      "name": "Pl",
-      "minsuit": 0.975
-    },
-	{
-      "name": "Sb",
-      "minsuit": 0.975
-    },
-	{
-      "name": "Sw",
-      "minsuit": 0.975
-    },
-    {
-      "name": "Other",
-      "minsuit": 0.975
-    }
+  {
+    "name": "Pj",
+    "minsuit": 0.9
+  },
+  {
+    "name": "Pl",
+    "minsuit": 0.9
+  },
+  {
+    "name": "Sb",
+    "minsuit": 0.9
+  },
+  {
+    "name": "Sw",
+    "minsuit": 0.9
+  },
+  {
+    "name": "LW",
+    "minsuit": 0.9
+  },
+  {
+    "name": "Other",
+    "minsuit": 0.9
+  }
 ]
