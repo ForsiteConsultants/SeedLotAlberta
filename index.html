@@ -67,12 +67,12 @@
 
     <div id="ctn" class="container-fluid no-gutters">
         <div class="row no-gutters navbar-light bg-light fixed-top" id="titleRow">
-            <nav class="col-12">
+            <nav class="col">
                 <div id="titleDiv" class="bg-light">
                     <div class="navbar-brand">
                         <img src="https://maps.forsite.ca/Forsite_Logo_FMS_FullColour_CMYK.png" alt="Logo" width=165
-                            height=64 />
-                        <span id="titleText">
+                            height=64 class="mg-4" />
+                        <span id="titleText" class="px-4">
                             CBST Seedlot Selection Tool Version 1.0
                         </span>
                         <span id="titleTextsmall">
@@ -89,7 +89,7 @@
 
 
         <div class="row no-gutters" id="mainRow">
-            <div class="col-3">
+            <div class="col-12 resizable" id="resizablePanel">
                 <div id="leftCol" class="card">
 
 
@@ -187,19 +187,6 @@
                             <div id="seedlotgrid"></div>
 
 
-                            <!-- <table id="example" class="display" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>BECvar_site</th>
-                                        <th>BECvar_seed</th>
-                                        <th>HTp_pred</th>
-                                        <th>Sp_suit_site</th>
-                                        <th>Sp_suit_seed</th>
-                                        <th>Limit</th>
-                                    </tr>
-                                </thead>
-                            </table> -->
-
                             <div class="">
                                 <table id="cutblock_table" class="table-striped">
                                     <thead>
@@ -219,7 +206,7 @@
                                             <th data-field="seedzone" data-sortable="true">Seed zone</th>
                                             <th data-field="Orchard" data-sortable="true">Orchard</th>
                                             <th data-field="Sp" data-sortable="true">Species</th>
-                                            <th data-field="registration" data-sortable="true">Registration</th>
+                                            <th data-field="registration" data-sortable="true">Registration num</th>
                                             <th data-field="owner" data-sortable="true">Owner</th>
                                             <th data-field="stream" data-sortable="true">Stream</th>
                                         </tr>
@@ -293,12 +280,12 @@
                 </div>
             </div>
 
-            <div id="mapDiv" class="col-9 no-gutters">
+            <div id="mapDiv" class="col no-gutters">
                 <!--add the below divs in the JS when making the widgets-->
                 <div id="coords"></div>
                 <!-- <div id ="scaleDiv"></div> -->
 
-                <div id="mapDiv"></div>
+                <div id="map"></div>
                 <div id="topbar">
                     <div>
                         <button class="action-button esri-widget" id="basemapButton" type="button"

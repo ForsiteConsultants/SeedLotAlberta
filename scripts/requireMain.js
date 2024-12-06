@@ -27,6 +27,7 @@ require([
     .getElementById("addButtonCutblock")
     .addEventListener("click", function () {
       defineMap.clearLyrs();
+
       console.log(selected);
       main
         .addSuitabilityLayerCutblock(

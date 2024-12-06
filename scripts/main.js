@@ -376,7 +376,7 @@ define(function () {
     window.dat = becStore;
     console.log(bec);
 
-    getSeedLot(bec, suit, 0, jsonseedlot);
+    getSeedLot(bec, suit, 0, jsonseedlot, sp);
 
     outlist_suit = [];
     outlist_non_suit = [];
@@ -608,7 +608,7 @@ define(function () {
     return gettingIntersection;
   }
 
-  function getSeedLot(bec, spmin, min, jsonseedlot) {
+  function getSeedLot(bec, spmin, min, jsonseedlot, sp) {
     // bec, spmin, 0, jsonseedlot
     console.log(spmin);
 
@@ -627,7 +627,7 @@ define(function () {
         console.log(data);
         results = data.filter(function (x) {
           // compare against the bec_name after the first 3 characters
-          return x["seedzone"] == bec_name;
+          return x["seedzone"] == bec_name && x["Sp"] == sp;
         });
         console.log(results);
         finalarray = results;
@@ -669,6 +669,8 @@ define(function () {
           }
         });
       }
+
+      // filter finalarray to round the values of uit
 
       $("#seedlot_table").DataTable({
         scrollY: "200px",
@@ -737,6 +739,11 @@ define(function () {
 
   function populateCutblockTable(results) {
     // adding all the data to the bootstrap table
+
+    // round the htp_pred values to 3 decimal places
+    for (var i = 0; i < results.length; i++) {
+      results[i].HTp_pred = Math.round(results[i].HTp_pred * 1000) / 1000;
+    }
 
     $("#cutblock_table").DataTable({
       scrollY: "200px",
