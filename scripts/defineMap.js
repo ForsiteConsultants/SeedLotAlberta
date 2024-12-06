@@ -173,8 +173,9 @@ define([
       "Alberta FMU"
     );
 
-    albertaFMU.opacity = 0.5;
     map.add(albertaFMU);
+    // turn off albertafmu
+    albertaFMU.visible = false;
 
     // nonsuitLayer = featureInit("https://maps.forsite.ca/server/rest/services/Hosted/CBST_BEC10_BEC11/FeatureServer/6", ["map_label", "SHAPE_Area"], "CBST Species May Not Be Suitable");
     // current2019Layer = featureInit("https://maps.forsite.ca/server/rest/services/Hosted/CBST_BEC10_BEC11/FeatureServer/2", ["map_label", "SHAPE_Area"], "CBST 2019");
