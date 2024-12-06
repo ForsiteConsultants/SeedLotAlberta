@@ -768,7 +768,6 @@ define(function () {
     // jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
     let suit = speciesStore.find((x) => x.name === sp).minsuit;
     //        loadgridSeed(sp, suit, 0, jsontxt, jsontxt2019);
-    console.log(jsontxt2019 + "  " + suit);
 
     suit = suit / 100;
     spmin = 0;
@@ -789,6 +788,7 @@ define(function () {
 
         // find the name in becStore associated to the bec id chosen
         var bec_name = becStore.find((x) => x.id == bec).name;
+        bec_name = bec_name.length > 4 ? bec_name.substring(3) : bec_name;
         var results = data.filter(function (x) {
           return x["BECvar_seed"] == bec_name && x["HTp_pred"] >= suit;
         });
