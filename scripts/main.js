@@ -376,7 +376,7 @@ define(function () {
     window.dat = becStore;
     console.log(bec);
 
-    getSeedLot(bec, suit, 0, jsonseedlot, sp);
+    // getSeedLot(bec, suit, 0, jsonseedlot, sp);
 
     outlist_suit = [];
     outlist_non_suit = [];
@@ -420,6 +420,7 @@ define(function () {
             updateData(results).then(function (data) {
               console.log(data);
               populateCutblockTable(data);
+              getSeedLot(bec, suit, 0, jsonseedlot, sp, data);
             });
 
             // ========= SUITABLE OUTPUT ======================
@@ -608,9 +609,15 @@ define(function () {
     return gettingIntersection;
   }
 
-  function getSeedLot(bec, spmin, min, jsonseedlot, sp) {
+  function getSeedLot(bec, spmin, min, jsonseedlot, sp, cutblock_data) {
     // bec, spmin, 0, jsonseedlot
     console.log(spmin);
+    // get all values from BECvar_seed from cutblock data and add it to a list
+    var seedzones = [];
+    for (var i = 0; i < cutblock_data.length; i++) {
+      seedzones.push(cutblock_data[i].BECvar_seed);
+    }
+    console.log(seedzones);
 
     $.getJSON(jsonseedlot, function (data) {
       var bec_name = "";
@@ -625,10 +632,9 @@ define(function () {
         bec_name = bec_name.length > 4 ? bec_name.substring(3) : bec_name;
         console.log(bec_name);
         console.log(data);
-        results = data.filter(function (x) {
-          // compare against the bec_name after the first 3 characters
-          return x["seedzone"] == bec_name && x["Sp"] == sp;
-        });
+        results = data.filter(
+          (item) => seedzones.includes(item.seedzone) && item.Sp === sp
+        );
         console.log(results);
         finalarray = results;
         console.log(finalarray);
