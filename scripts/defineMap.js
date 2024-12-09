@@ -195,7 +195,6 @@ define([
     // outlist = [outlist_suit, outlist_non_suit, outlist_2019, outlist_non_2019]
     // nonsuit
     window.outlist = outlist;
-    // console.log(outlist);
 
     // currentLayer.definitionExpression = 'MAP_LABEL in ("BAFAun", "ESSFmcp", "ESSFun", "ESSFunp", "ESSFwvp")';
     // currentLayer.definitionExpression = "MAP_LABEL in ('BAFAunp', 'ESSFmk','ESSFmkp', 'ESSFmw','IMAunp', 'MHmm2')";
@@ -215,10 +214,32 @@ define([
 
     if (outlist[0].length != 0) {
       if (outlist[0][0].length != 0) {
-        console.log("suit");
-        currentLayer.definitionExpression = "seedname in (" + outlist[0] + ")";
-        currentLayer.popupTemplate = template;
-        map.add(currentLayer);
+        // var seedname = "'futAP11', 'futBSA11', 'futBSA12', 'futCM12', 'futCM13', 'futKU11', 'futLBH11', 'futLBH12', 'futLBH13', 'futLBH14', 'futLBH21', 'futNM11', 'futNM21', 'futUBH11', 'futUBH12'"
+        // remove the first three characters from the seedname
+        console.log("outlist", outlist[0]);
+        // Step 1: Split the string into an array
+        let seednames = outlist[0].split(", ");
+        console.log("seednames", seednames);
+
+        // Step 2: Remove single quotes and first 3 characters
+        let modifiedSeednames = seednames.map((seedname) =>
+          seedname.replace(/'/g, "").slice(3)
+        );
+
+        // convert back to a string
+        modifiedSeednames = modifiedSeednames.join("', '");
+        modifiedSeednames = "'" + modifiedSeednames + "'";
+        console.log("modifiedSeednames", modifiedSeednames);
+
+        try {
+          console.log("suit");
+          currentLayer.definitionExpression =
+            "seedname in (" + modifiedSeednames + ")";
+          currentLayer.popupTemplate = template;
+          map.add(currentLayer);
+        } catch (error) {
+          console.log("error", error);
+        }
       } else {
         currentLayer.definitionExpression = "";
         currentLayer.popupTemplate = "";
