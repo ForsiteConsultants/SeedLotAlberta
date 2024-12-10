@@ -36,7 +36,7 @@ require([
         )
         .then((layers) => {
           console.log(layers);
-          defineMap.updateLayer(layers);
+          defineMap.updateLayer(layers, "cutblock");
         });
     });
 
@@ -51,7 +51,7 @@ require([
           document.getElementById("becInputSeedlot").value
         )
         .then((layers) => {
-          defineMap.updateLayer(layers);
+          defineMap.updateLayer(layers, "seedlot");
           console.log(layers);
           // defineMap.displaySPU(document.getElementById("seedlotNumber").value);
         });

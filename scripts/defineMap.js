@@ -190,46 +190,35 @@ define([
     // map.add(kmlsample);
   }
 
-  function updateLayer(outlist) {
+  function updateLayer(outlist, type) {
     // outlist: all 4 possible queries that reflect the users chosen species and bec variant
     // outlist = [outlist_suit, outlist_non_suit, outlist_2019, outlist_non_2019]
     // nonsuit
     window.outlist = outlist;
-
-    // currentLayer.definitionExpression = 'MAP_LABEL in ("BAFAun", "ESSFmcp", "ESSFun", "ESSFunp", "ESSFwvp")';
-    // currentLayer.definitionExpression = "MAP_LABEL in ('BAFAunp', 'ESSFmk','ESSFmkp', 'ESSFmw','IMAunp', 'MHmm2')";
-
-    // if (outlist[1].length != 0) {
-    //     if (outlist[1][0].length != 0) {
-    //         console.log("nonsuit")
-    //         nonsuitLayer.definitionExpression = "MAP_LABEL in (" + outlist[1] + ")";
-    //         nonsuitLayer.popupTemplate = template;
-    //         map.add(nonsuitLayer);
-    //     } else {
-    //         nonsuitLayer.definitionExpression = "";
-    //         nonsuitLayer.popupTemplate = "";
-    //         map.remove(nonsuitLayer);
-    //     }
-    // }
+    var seednames = [];
+    var modifiedSeednames = [];
 
     if (outlist[0].length != 0) {
       if (outlist[0][0].length != 0) {
         // var seedname = "'futAP11', 'futBSA11', 'futBSA12', 'futCM12', 'futCM13', 'futKU11', 'futLBH11', 'futLBH12', 'futLBH13', 'futLBH14', 'futLBH21', 'futNM11', 'futNM21', 'futUBH11', 'futUBH12'"
         // remove the first three characters from the seedname
-        console.log("outlist", outlist[0]);
+        console.log("outlist", outlist);
         // Step 1: Split the string into an array
-        let seednames = outlist[0].split(", ");
+        if (type == "seedlot") {
+          seednames = outlist[0].split(", ");
+          // Step 2: Remove single quotes and first 3 characters
+          modifiedSeednames = seednames.map((seedname) =>
+            seedname.replace(/'/g, "").slice(3)
+          );
+
+          // convert back to a string
+          modifiedSeednames = modifiedSeednames.join("', '");
+          modifiedSeednames = "'" + modifiedSeednames + "'";
+          console.log("modifiedSeednames", modifiedSeednames);
+        } else {
+          modifiedSeednames = outlist[0][0];
+        }
         console.log("seednames", seednames);
-
-        // Step 2: Remove single quotes and first 3 characters
-        let modifiedSeednames = seednames.map((seedname) =>
-          seedname.replace(/'/g, "").slice(3)
-        );
-
-        // convert back to a string
-        modifiedSeednames = modifiedSeednames.join("', '");
-        modifiedSeednames = "'" + modifiedSeednames + "'";
-        console.log("modifiedSeednames", modifiedSeednames);
 
         try {
           console.log("suit");
