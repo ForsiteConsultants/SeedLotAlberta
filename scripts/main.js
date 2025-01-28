@@ -605,6 +605,8 @@ define(function () {
                     if (finalarray[i].GW == "") {
                         finalarray[i].GW = 0;
                     }
+                    finalarray[i].seedzone = finalarray[i].seedzone.slice(0, finalarray[i].seedzone.length-1) + "." + finalarray[i].seedzone.slice(-1);
+
                 }
             } else {
                 console.log("Multiple items selected")
@@ -626,6 +628,9 @@ define(function () {
                         if (finalarray[i].GW == "") {
                             finalarray[i].GW = 0;
                         }
+
+                        // Add a decimal between the first and second number
+                        finalarray[i].seedzone = finalarray[i].seedzone.slice(0, finalarray[i].seedzone.length-1) + "." + finalarray[i].seedzone.slice(-1);
                     }
                 });
                 
@@ -700,6 +705,9 @@ define(function () {
                 } else {
                     data[i].Sp_suit_seed = "Not Suitable";
                 }
+                // Add a decimal between the first and second number
+                data[i].BECvar_seed = data[i].BECvar_seed.slice(0, data[i].BECvar_seed.length-1) + "." + data[i].BECvar_seed.slice(-1);
+                data[i].BECvar_site = data[i].BECvar_site.slice(0, data[i].BECvar_site.length-1) + "." + data[i].BECvar_site.slice(-1);
             }
             resolve(data);
         });
