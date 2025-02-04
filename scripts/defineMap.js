@@ -93,6 +93,8 @@ define([
   };
 
 
+
+
   /*
    * Initialize the map and all layers and functionality
    */
@@ -151,7 +153,6 @@ define([
       addLegend();
       addScalebar();
       addMouseCoord();
-      currentLayer.labelingInfo = [labelClass];
       
     });
   }
@@ -161,11 +162,6 @@ define([
   }
 
   function layerInit() {
-    currentLayer = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
-      ["seedname", "SHAPE_Area"],
-      "Seed Zone"
-    );
 
     let currentLayer_renderer = {
       type: "simple",  // autocasts as new SimpleRenderer()
@@ -178,6 +174,33 @@ define([
         }
       }
     };
+
+    const labelClass = {
+      // autocasts as new LabelClass()
+      symbol: {
+        type: "text",  // autocasts as new TextSymbol()
+        color: "white",
+        haloColor: "blue",
+        haloSize: 1,
+        font: {  // autocast as new Font()
+           family: "Ubuntu Mono",
+           size: 14,
+           weight: "bold"
+         }
+      },
+      labelPlacement: "always-horizontal",
+      labelExpressionInfo: {
+        expression: "$feature.seedname"
+      }
+    };
+
+
+
+    currentLayer = featureInit(
+      "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
+      ["seedname", "SHAPE_Area"],
+      "Seed Zone"
+    );
 
     currentLayer.renderer = currentLayer_renderer;
     
@@ -200,6 +223,7 @@ define([
     };
 
     seedzone_permanent.renderer = renderer;
+    // seedzone_permanent.labelingInfo = [labelClass];
 
     map.add(seedzone_permanent);
 
@@ -214,15 +238,6 @@ define([
       ["fma_name", "fma_code"],
       "Alberta FMA"
     );
-
-    // for (var i = 1; i <= 20; i++) {
-    //   layer = featureInit(
-    //     "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/" + i,
-    //     ["hectares", "objectid"],
-    //     "CPP " + i
-    //   );
-    //   map.add(layer);
-    // }
 
     blackSpruce_cpp1 = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/1",
@@ -396,6 +411,25 @@ define([
     var seednames = [];
     var modifiedSeednames = [];
 
+    
+    const labelClass = {
+      // autocasts as new LabelClass()
+      symbol: {
+        type: "text", // autocasts as new TextSymbol()
+        color: "black",
+        font: {
+          // autocast as new Font()
+          family: "Playfair Display",
+          size: 12,
+          weight: "bold"
+        }
+      },
+      labelPlacement: "always-horizontal",
+      labelExpressionInfo: {
+        expression: "$feature.seedname"
+      }
+    };
+
     if (outlist[0].length != 0) {
       if (outlist[0][0].length != 0) {
         // var seedname = "'futAP11', 'futBSA11', 'futBSA12', 'futCM12', 'futCM13', 'futKU11', 'futLBH11', 'futLBH12', 'futLBH13', 'futLBH14', 'futLBH21', 'futNM11', 'futNM21', 'futUBH11', 'futUBH12'"
@@ -423,6 +457,7 @@ define([
           currentLayer.definitionExpression =
             "seedname in (" + modifiedSeednames + ")";
           currentLayer.popupTemplate = template;
+          currentLayer.labelingInfo = [labelClass];
           map.add(currentLayer);
         } catch (error) {
           console.log("error", error);
@@ -540,23 +575,6 @@ define([
     });
   }
 
-  const labelClass = {  // autocasts as new LabelClass()
-    symbol: {
-      type: "text",  // autocasts as new TextSymbol()
-      color: "white",
-      font: {  // autocast as new Font()
-         family: "Orbitron",
-         size: 12,
-         weight: "bold"
-       }
-    },
-    labelExpressionInfo: {
-      expression: "$feature.rte_num1"
-    },
-    labelPlacement: "center-along",
-    repeatLabel: true,
-    repeatDistanceLabel: 100
-  };
 
   // Initialize a feature layer with definition query and custom renderer
   function featureInit_complex(src, expression, name, renderer) {
