@@ -65,7 +65,7 @@ define([
   var layerButton;
   var scaleBar, layerList;
   var activeWidget;
-  var currentLayer, current2019Layer, nonsuit2019Layer, spuLayer, muLayer;
+  var currentLayer, current2019Layer, nonsuit2019Layer, spuLayer, muLayer, seedzone_permanent;
   var suitRenderer, nonSuitRenderer;
   var portalUrl = "https://www.arcgis.com";
 
@@ -81,6 +81,7 @@ define([
     updateLayer: updateLayer,
     displaySPU: displaySPU,
     clearCutBlock: clearCutBlock,
+    updateSeedZoneLayer: updateSeedZoneLayer,
   };
 
   suitRenderer = {
@@ -90,13 +91,7 @@ define([
       color: [115, 76, 0, 1],
     },
   };
-  nonSuitRenderer = {
-    type: "simple-fill",
-    color: [170, 102, 205, 0.4],
-    outline: {
-      color: [76, 0, 115, 1],
-    },
-  };
+
 
   /*
    * Initialize the map and all layers and functionality
@@ -171,13 +166,43 @@ define([
       ["seedname", "SHAPE_Area"],
       "Seed Zone"
     );
+
+    let currentLayer_renderer = {
+      type: "simple",  // autocasts as new SimpleRenderer()
+      symbol: {
+        type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+        color: [ 76, 0, 115, 0.5 ],
+        outline: {  // autocasts as new SimpleLineSymbol()
+          width: 1,
+          color: "grey"
+        }
+      }
+    };
+
+    currentLayer.renderer = currentLayer_renderer;
     
     seedzone_permanent = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
       ["seedname", "SHAPE_Area"],
       "Seed Zone Permanent"
     );
+
+    let renderer = {
+      type: "simple",  // autocasts as new SimpleRenderer()
+      symbol: {
+        type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+        color: [ 255, 128, 0, 0.5 ],
+        outline: {  // autocasts as new SimpleLineSymbol()
+          width: 1,
+          color: "black"
+        }
+      }
+    };
+
+    seedzone_permanent.renderer = renderer;
+
     map.add(seedzone_permanent);
+
 
     albertaFMU = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/Alberta_FMU_FMA/FeatureServer/4",
@@ -323,6 +348,27 @@ define([
     map.add(white_spruce_cpph);
     map.add(white_spruce_cppi);
 
+    blackSpruce_cpp1.visible = false;
+    blackSpruce_cpp2.visible = false;
+    blackSpruce_cpp3.visible = false;
+    lodgePolePine_cpk1.visible = false;
+    lodgePolePine_cppa.visible = false;
+    lodgePolePine_cppb1.visible = false;
+    lodgePolePine_cppb2.visible = false;
+    lodgePolePine_cppc.visible = false;
+    lodgePolePine_cppj.visible = false;
+    white_spruce_cppd1.visible = false;
+    white_spruce_cppd.visible = false;
+    white_spruce_cppe1.visible = false;
+    white_spruce_cppe2.visible = false;
+    white_spruce_cppe.visible = false;
+    white_spruce_cppg1.visible = false;
+    white_spruce_cppg2.visible = false;
+    white_spruce_cpph.visible = false;
+    white_spruce_cppi.visible = false;
+
+    map.add(albertaFMA);
+
 
 
     map.add(albertaFMU);
@@ -429,6 +475,15 @@ define([
     // map.add(spuLayer)
   }
 
+  function updateSeedZoneLayer(BECLayer) {
+    let modifiedBECLayer = BECLayer.split(", ").map((seedname) => seedname.slice(3)).join("', '");
+    modifiedBECLayer = "'" + modifiedBECLayer + "'";
+    seedzone_permanent.definitionExpression = "seedname in (" + modifiedBECLayer + ")";
+    console.log(modifiedBECLayer);
+    map.add(seedzone_permanent);
+  }
+
+
   function displaySPU(SPLayer) {
     // spuLayer.definitionExpression = "Seedlot = " + SPLayer;
     // map.add(spuLayer);
@@ -465,6 +520,7 @@ define([
   function clearLyrs() {
     map.layers.removeAll();
     map.add(albertaFMU);
+    map.add(albertaFMA);
   }
   // Initialize a feature layer
   function featureInit(src, fields, name) {

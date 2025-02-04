@@ -28,7 +28,7 @@ require([
   document
     .getElementById("addButtonCutblock")
     .addEventListener("click", function () {
-      defineMap.clearLyrs();
+      // defineMap.clearLyrs();
       
       var suit = document.getElementById("cutblockInput").value;
       if (suit === "" || suit === null || suit === undefined || (isNaN(suit))) {
@@ -47,7 +47,10 @@ require([
         .then((layers) => {
           console.log(layers);
           defineMap.updateLayer(layers, "cutblock");
+          defineMap.updateSeedZoneLayer(main.returnBecId(document.getElementById("becInputCutblock").value));
         });
+      
+
     });
 
   // Go button "I have a Seedlot" tab
@@ -66,7 +69,7 @@ require([
         .then((layers) => {
           defineMap.updateLayer(layers, "seedlot");
           console.log(layers);
-          // defineMap.displaySPU(document.getElementById("seedlotNumber").value);
+          defineMap.updateSeedZoneLayer(main.returnBecId(document.getElementById("becInputSeedlot").value));
         });
     });
 

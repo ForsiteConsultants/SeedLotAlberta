@@ -272,6 +272,7 @@ define(function () {
     getIntersection: getIntersection,
     updateData: updateData,
     populateGenSuitList: populateGenSuitList,
+    returnBecId: returnBecId,
   };
 
   function filterUniqueByColumn(data, column) {
@@ -399,6 +400,11 @@ define(function () {
     });
     console.log("HALO");
    }
+
+  function returnBecId(bec_name) {
+    console.log(bec_name);
+    return becStore.find((x) => x.id == bec_name).name;
+  }
 
   // create the paths and locations for the selected cutblock and species
   function addSuitabilityLayerCutblock(sp, bec, suit, folder) {
