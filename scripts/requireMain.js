@@ -7,6 +7,7 @@ require([
 
   main.fillSelects();
   main.populateGenSuitList();
+  main.populateGenSuitThresholdList();
 
   defineMap.mapInit();
   var selected = [];

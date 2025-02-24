@@ -198,7 +198,7 @@ define([
 
     currentLayer = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
-      ["seedname", "SHAPE_Area"],
+      ["seedname", "SHAPE_Area", "seedzone"],
       "Seed Zone"
     );
 
@@ -206,19 +206,19 @@ define([
     
     seedzone_permanent = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
-      ["seedname", "SHAPE_Area"],
-      "Seed Zone Permanent"
+      ["seedname", "SHAPE_Area", "LABEL"],
+      "Focal Seed Zone"
     );
 
     let renderer = {
       type: "simple",  // autocasts as new SimpleRenderer()
       symbol: {
-        type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-        color: [ 255, 128, 0, 0.5 ],
-        outline: {  // autocasts as new SimpleLineSymbol()
-          width: 1,
-          color: "black"
-        }
+      type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+      color: [ 0, 0, 0, 0 ],  // no fill
+      outline: {  // autocasts as new SimpleLineSymbol()
+        width: 1,
+        color: "black"
+      }
       }
     };
 
@@ -382,7 +382,7 @@ define([
     white_spruce_cpph.visible = false;
     white_spruce_cppi.visible = false;
 
-    map.add(albertaFMA);
+    // map.add(albertaFMA);
 
 
 
@@ -426,7 +426,7 @@ define([
       },
       labelPlacement: "always-horizontal",
       labelExpressionInfo: {
-        expression: "$feature.seedname"
+        expression: "$feature.seedzone"
       }
     };
 

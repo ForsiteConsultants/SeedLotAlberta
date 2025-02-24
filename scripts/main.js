@@ -273,6 +273,7 @@ define(function () {
     updateData: updateData,
     populateGenSuitList: populateGenSuitList,
     returnBecId: returnBecId,
+    populateGenSuitThresholdList: populateGenSuitThresholdList,
   };
 
   function filterUniqueByColumn(data, column) {
@@ -287,6 +288,33 @@ define(function () {
       }
     });
   }
+
+  function populateGenSuitThresholdList() {
+
+    let data = new Promise((resolve, reject) => {
+      var test_data;
+
+      for (var i = 0.850; i < 1; i+=0.005) {
+        const temp = document.createElement("option");
+        temp.label = i.toFixed(3);
+        temp.value = i;
+        temp.innerHTML = temp.label;
+        document.getElementById("cutblockInput").options.add(temp);
+      }
+
+      for (var i = 0.850; i < 1; i+=0.005) {
+        const temp2 = document.createElement("option");
+        temp2.label = i.toFixed(3);
+        temp2.value = i;
+        temp2.innerHTML = temp2.label;
+        document.getElementById("seedLotInput").options.add(temp2);
+      }
+
+      resolve(test_data);
+    });
+
+  }
+
 
   // adds all the options to the Species and BEC Variant dropdowns
   function fillSelects() {
@@ -398,7 +426,6 @@ define(function () {
 
       resolve(test_data);
     });
-    console.log("HALO");
    }
 
   function returnBecId(bec_name) {
@@ -1037,5 +1064,7 @@ define(function () {
     });
   }
 
-  // create a function to load the seedlot data
+  
+
+
 });
