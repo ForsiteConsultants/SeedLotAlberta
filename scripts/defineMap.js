@@ -228,7 +228,6 @@ define([
 
     map.add(seedzone_permanent);
 
-
     albertaFMU = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/Alberta_FMU_FMA/FeatureServer/4",
       ["fmu_name", "fmu_code"],
@@ -556,7 +555,7 @@ define([
   function clearLyrs() {
     map.layers.removeAll();
     map.add(albertaFMU);
-    map.add(albertaFMA);
+    // map.add(albertaFMA);
   }
   // Initialize a feature layer
   function featureInit(src, fields, name) {

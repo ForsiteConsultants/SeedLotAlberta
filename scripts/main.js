@@ -301,6 +301,7 @@ define(function () {
       temp.innerHTML = temp.label;
       temp.selected = true;
       document.getElementById("cutblockInput").options.add(temp);
+      
 
       for (var i = 0.995; i > 0.845; i-=0.005) {
         const temp = document.createElement("option");
@@ -317,6 +318,7 @@ define(function () {
       temp2.innerHTML = temp2.label;
       temp2.selected = true;
       document.getElementById("seedLotInput").options.add(temp2);
+
 
       for (var i = 0.995; i > 0.845; i-=0.005) {
         const temp2 = document.createElement("option");
