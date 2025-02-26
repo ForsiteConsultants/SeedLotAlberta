@@ -223,6 +223,7 @@ define([
     };
 
     seedzone_permanent.renderer = renderer;
+    seedzone_permanent.visible = false;
     // seedzone_permanent.labelingInfo = [labelClass];
 
     map.add(seedzone_permanent);
@@ -555,7 +556,7 @@ define([
   function clearLyrs() {
     map.layers.removeAll();
     map.add(albertaFMU);
-    map.add(albertaFMA);
+    // map.add(albertaFMA);
   }
   // Initialize a feature layer
   function featureInit(src, fields, name) {

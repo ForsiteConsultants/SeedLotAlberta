@@ -323,11 +323,11 @@ define(function () {
     let data = new Promise((resolve, reject) => {
       var test_data;
       var speciesStore_json = "scripts/min_gen_suit_11.json";
-      var becStore_json = "Version_7_0/PL_migrated_height_list_5.json";
+      var becStore_json = "byyear/2025/PL_migrated_height_list_5.json";
 
       $.getJSON(becStore_json, function (data) {
         becStore = data;
-        // console.log(data);
+        console.log(data);
 
         // filter the data to only show the unique values for BECvar_site
         becStore = filterUniqueByColumn(becStore, "BECvar_site");
@@ -394,30 +394,47 @@ define(function () {
     let data = new Promise((resolve, reject) => {
       var test_data;
 
-
-      var option = document.createElement("option");
-      option.label = "Version 7";
-      option.value = "Version_7_0";
-      option.innerHTML = option.label;
-      document.getElementById("genSuitLists").options.add(option);
+      // var option = document.createElement("option");
+      // option.label = "Version 7";
+      // option.value = "Version_7_0";
+      // option.innerHTML = option.label;
+      // document.getElementById("genSuitLists").options.add(option);
       
-      var option = document.createElement("option");
-      option.label = "Version 8";
-      option.value = "Version_8_0";
-      option.innerHTML = option.label;
-      document.getElementById("genSuitLists").options.add(option);
+      // var option = document.createElement("option");
+      // option.label = "Version 8";
+      // option.value = "Version_8_0";
+      // option.innerHTML = option.label;
+      // document.getElementById("genSuitLists").options.add(option);
 
-      var option2 = document.createElement("option");
-      option2.label = "Version 7";
-      option2.value = "Version_7_0";
-      option2.innerHTML = option2.label;
-      document.getElementById("seed_genSuitLists").options.add(option2);
+      for (var i = 2025; i < 2056; i+=10) {
+        var option = document.createElement("option");
+        option.label = i;
+        option.value = i;
+        option.innerHTML = option.label;
+        document.getElementById("genSuitLists").options.add(option);
+      }
+
+      for (var i = 2025; i < 2056; i+=10) {
+        var option = document.createElement("option");
+        option.label = i;
+        option.value = i;
+        option.innerHTML = option.label;
+        document.getElementById("seed_genSuitLists").options.add(option);
+      }
+
+
+
+      // var option2 = document.createElement("option");
+      // option2.label = "Version 7";
+      // option2.value = "Version_7_0";
+      // option2.innerHTML = option2.label;
+      // document.getElementById("seed_genSuitLists").options.add(option2);
       
-      var option2 = document.createElement("option");
-      option2.label = "Version 8";
-      option2.value = "Version_8_0";
-      option2.innerHTML = option2.label;
-      document.getElementById("seed_genSuitLists").options.add(option2);
+      // var option2 = document.createElement("option");
+      // option2.label = "Version 8";
+      // option2.value = "Version_8_0";
+      // option2.innerHTML = option2.label;
+      // document.getElementById("seed_genSuitLists").options.add(option2);
 
       console.log(option);
 
@@ -436,12 +453,14 @@ define(function () {
   // create the paths and locations for the selected cutblock and species
   function addSuitabilityLayerCutblock(sp, bec, suit, folder) {
 
+    console.log(folder);
+
     jsontxt =
-      folder + "/" +
+      "byyear/" + folder + "/" +
       sp.charAt(0).toUpperCase() +
       sp.slice(1).toLowerCase() +
       "_migrated_height_list_5.json";
-    jsonseedlot = folder +"/AB_seedlots_ver3.json";
+    jsonseedlot = "byyear/" + folder  +"/AB_seedlots_ver3.json";
 
     console.log(sp);
     // let suit = speciesStore.find((x) => x.name === sp).minsuit;
@@ -693,6 +712,7 @@ define(function () {
   function getSeedLot(bec, spmin, min, jsonseedlot, sp, cutblock_data) {
     // bec, spmin, 0, jsonseedlot
     console.log(spmin);
+    console.log(cutblock_data);
     // get all values from BECvar_seed from cutblock data and add it to a list
     var seedzones = [];
     for (var i = 0; i < cutblock_data.length; i++) {
@@ -849,7 +869,7 @@ define(function () {
   function addSuitabilityLayerSeedlot(sp, bec, suit, folder) {
     console.log("Seedlot Go button. Species: " + sp + " BEC: " + bec);
     jsontxt =
-      folder + "/" +
+      "byyear/" + folder + "/" +
       sp.charAt(0).toUpperCase() +
       sp.slice(1).toLowerCase() +
       "_migrated_height_list_5.json";
@@ -938,8 +958,8 @@ define(function () {
 
   function populateSeedlot(orch, folder) {
     console.log("Seedlot top button. Value entered " + orch);
-    jsonorch = folder +  "/" + "Orchard_list.json";
-    jsonseed = folder + "/" + "Seedlot_list.json";
+    jsonorch =  "byyear/" + folder  +  "/" + "Orchard_list.json";
+    jsonseed = "byyear/" + folder  + "/" + "Seedlot_list.json";
     results = "";
 
     $.getJSON(jsonorch, function (orch_data) {
@@ -1034,9 +1054,9 @@ define(function () {
     });
   }
 
-  function populateSpeciesBEC(lot) {
+  function populateSpeciesBEC(lot, folder) {
     console.log("Seedlot middle button. Value entered " + lot);
-    jsonseed = "Version_7_0/" + "Seedlot_list.json";
+    jsonseed = "byyear/" + folder + "/Seedlot_list.json";
 
     $.getJSON(jsonseed, function (seed_data) {
       let seedlot_data = new Promise((resolve, reject) => {
