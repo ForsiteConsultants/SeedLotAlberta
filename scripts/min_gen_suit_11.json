@@ -16,11 +16,11 @@
     "minsuit": 0.9
   },
   {
-    "name": "LW",
+    "name": "LT",
     "minsuit": 0.9
   },
   {
-    "name": "Ot",
+    "name": "Other",
     "minsuit": 0.9
   }
 ]

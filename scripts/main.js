@@ -294,15 +294,31 @@ define(function () {
     let data = new Promise((resolve, reject) => {
       var test_data;
 
-      for (var i = 0.850; i < 1; i+=0.005) {
+      // manually add in a threshold of 0.9
+      const temp = document.createElement("option");
+      temp.label = 0.900;
+      temp.value = 0.900;
+      temp.innerHTML = temp.label;
+      temp.selected = true;
+      document.getElementById("cutblockInput").options.add(temp);
+
+      for (var i = 0.995; i > 0.845; i-=0.005) {
         const temp = document.createElement("option");
         temp.label = i.toFixed(3);
         temp.value = i;
         temp.innerHTML = temp.label;
+
         document.getElementById("cutblockInput").options.add(temp);
       }
 
-      for (var i = 0.850; i < 1; i+=0.005) {
+      const temp2 = document.createElement("option");
+      temp2.label = 0.900;
+      temp2.value = 0.900;
+      temp2.innerHTML = temp2.label;
+      temp2.selected = true;
+      document.getElementById("seedLotInput").options.add(temp2);
+
+      for (var i = 0.995; i > 0.845; i-=0.005) {
         const temp2 = document.createElement("option");
         temp2.label = i.toFixed(3);
         temp2.value = i;
