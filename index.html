@@ -108,17 +108,13 @@
                                 type="button" role="tab" aria-controls="seedlot" aria-selected="false">I Have A
                                 Seedlot</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="versions-tab" data-bs-toggle="tab" data-bs-target="#versions"
+                                type="button" role="tab" aria-controls="versions" aria-selected="false">Versions</button>
+                        </li>
                     </ul>
 
 
-
-
-                    <!-- 
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                    </div> -->
 
                     <div class="tab-content" id="myTabContent">
                         <div title="Instructions" id="instructions" class="card-body tab-pane fade" role="tabpanel"
@@ -272,6 +268,81 @@
                             <div id="messages"></div>
 
                         </div>
+<div title="I Have A Seedlot" id="seedlot" class="card-body tab-pane fade" role="tabpanel"
+                            aria-labelledby="seedlot-tab">
+                            <form>
+                                <div class="form-group">
+                                    <label for="seed_genSuitLists">Genetic Suitability Lists:</label><BR>
+                                    <select class="form-control" data-max-options="1"
+                                        data-live-search="true" id="seed_genSuitLists"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="speciesInputSeedlot">Species: </label><BR>
+                                    <select class="form-control" id="speciesInputSeedlot">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="becInputSeedlot">Seed Zone: </label><BR>
+                                    <select class="form-control select" multiple data-max-options="1"
+                                        data-live-search="true" id="becInputSeedlot">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="seedLotInput">Genetic suitability threshold: </label><BR>
+                                    <select type="text" class="form-control" id="seedLotInput"> </select> 
+                                </div>
+                                <BR>
+                                <button id="addButtonSeedlot" type="submit" class="btn btn-secondary"
+                                    onclick="return false">GO</button><BR>
+                                <BR>
+                            </form>
+                            <div class="">
+                                <table class="table table-bordered table-striped " id="seed">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="BECvar_site" data-sortable="true">Plantation SZ</th>
+                                            <th data-field="BECvar_seed" data-sortable="true">Seed SZ</th>
+                                            <th data-field="Sp_suit_seed">Suitability</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="gridSeed"></div><BR>
+                            <div id="gensuitGrid"></div>
+                            <div id="messages"></div>
+
+                        </div>
+
+                        <div title="Versions" id="versions" class="card-body tab-pane fade" role="tabpanel"
+                            aria-labelledby="history-tab">
+                            <h5 class="card-title">Version 1.0 (2024-07-22):</h5>
+                            <ol class="card-text">
+                                <li>Using Lat, Elev, MAT, MCMT, TD, MAP, MSP, DD5, trMAP, and MSP in Euclidean distance calculations, where trMAP = MAP^(-1.25), and trMAP = MAP^(-0.75).</li>
+                                <li>Orchards assigned to a SZ on the basis of parent climates</li>
+                                <li>SZ-specific migration distances used.</li>
+                            </ol>
+                            <h5 class="card-title">Version 2.0 (2024-11-27)</h5>
+                            <ol class="card-text">
+                                <li>Replaced latitude with elevation in the Euclidean distance calculation</li>
+                                <li>Replaced height with height X survival as the response trait in the transfer functions and reduced genetic suitability threshold to 0.90.                                </li>
+                                <li>Where a plantation SZ (seedzone) had no eligible seed SZ, the genetic suitabililty threshold was reduced to 0.85 to help fill plantation SZ orphans.</li>
+                                <li>Single provincial average migration distance used to simplify analysis.</li>
+                                <li>Additional seedlots added to the seedlot list.</li>
+                            </ol>
+                            <h5 class="card-title">Version 3.0 (2025-02-25)</h5>
+                            <ol class="card-text">
+                                <li>Focal SZ, seed and plantation SZ, FMA, and FMU layers added.</li>
+                                <li>Genetic suitability threshold dropdown list added.</li>
+                                <li>Labels for seed and plantation SZs added.</li>
+                                <li>Lt and Pj genetic suitability lists were replaced with the Sw genetic suitability list as the Sw transfer function was considerably more reliable than the Lt and Pj functions.</li>
+                                <li>Dropdown menu to allow selection of migration distance year (2025, 2035, 2045, and 2055) was added.</li>
+                            </ol>
+                            
+
+
+                        </div>
+
+
                     </div>
                 </div>
 
