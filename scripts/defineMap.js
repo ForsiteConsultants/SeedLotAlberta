@@ -65,7 +65,7 @@ define([
   var layerButton;
   var scaleBar, layerList;
   var activeWidget;
-  var currentLayer, current2019Layer, nonsuit2019Layer, spuLayer, muLayer, seedzone_permanent;
+  var currentLayer, current2019Layer, nonsuit2019Layer, spuLayer, muLayer, seedzone_permanent, label_points;
   var suitRenderer, nonSuitRenderer;
   var portalUrl = "https://www.arcgis.com";
 
@@ -178,23 +178,34 @@ define([
     const labelClass = {
       // autocasts as new LabelClass()
       symbol: {
-        type: "text",  // autocasts as new TextSymbol()
-        color: "white",
-        haloColor: "blue",
-        haloSize: 1,
-        font: {  // autocast as new Font()
-           family: "Ubuntu Mono",
-           size: 14,
-           weight: "bold"
-         }
+        type: "text", // autocasts as new TextSymbol()
+        color: "black",
+        font: {
+          // autocast as new Font()
+          family: "Playfair Display",
+          size: 12,
+          weight: "bold"
+        }
       },
-      labelPlacement: "always-horizontal",
       labelExpressionInfo: {
-        expression: "$feature.seedname"
+        expression: "$feature.nsrname"
       }
     };
 
 
+    label_points = featureInit(
+      "https://maps.forsite.ca/server/rest/services/Hosted/AB_Seedzone_LabelPoints/FeatureServer/0",
+      ["nsrname", "seedzone"],
+      "Seedzone Label Points"
+    );
+    window.label_points = label_points;
+
+
+    // label_points.definitionExpression = "seedzone in ('futBSA11')";
+    label_points.labelingInfo = [labelClass];
+    console.log("label_points", label_points.labelingInfo);
+
+    // map.add(label_points);
 
     currentLayer = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
@@ -203,6 +214,7 @@ define([
     );
 
     currentLayer.renderer = currentLayer_renderer;
+    
     
     seedzone_permanent = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
@@ -239,150 +251,44 @@ define([
       "Alberta FMA"
     );
 
-    blackSpruce_cpp1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/1",
-      ["hectares", "objectid"],
-      "Black Spruce CPP 1"
-    );
-    blackSpruce_cpp2 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/2",
-      ["hectares", "objectid"],
-      "Black Spruce CPP 2"
-    );
-    blackSpruce_cpp3 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/3",
-      ["hectares", "objectid"],
-      "Black Spruce CPP 3"
-    );  
+    const cpp_layers = "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250312/FeatureServer"
 
-    lodgePolePine_cpk1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/4",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPK 1"
-    );
+    const speciesCppList = [
+      // Your cppLayerNames order:
+      "Jack pine-P1",        // P1
+      "Trembing-Aspen-AW1",   // A1
+      "Trembing-Aspen-AW2",   // A2
+      "Lodgepole pine-B1",   // B1
+      "Lodgepole pine-B2",   // B2
+      "Lodgepole pine-C",    // C
+      "Lodgepole pine-J",    // J
+      "Lodgepole pine-K1",   // K1
+      "Black spruce-L1",     // L1
+      "Black spruce-L2",     // L2
+      "Black spruce-L3",     // L3
+      "White spruce-D",      // D
+      "White spruce-D1",     // D1
+      "White spruce-E",      // E
+      "White spruce-E1",     // E1
+      "White spruce-E2",     // E2
+      "White spruce-G1",     // G1
+      "White spruce-G2",     // G2
+      "White spruce-H",      // H
+      "White spruce-I"       // I
+    ];
 
-    lodgePolePine_cppa = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/5",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPPA"
-    );
+    for (let i = 0; i < 19; i++) {
+      let layer = featureInit(
+        `${cpp_layers}/${i}`,
+        ["hectares", "objectid"],
+        `${speciesCppList[i]}`
+      );
+      map.add(layer);
+      layer.visible = false;
+    }
 
-    lodgePolePine_cppb1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/6",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPPB 1"
-    );
-
-    lodgePolePine_cppb2 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/7",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPPB 2"
-    );
-
-    lodgePolePine_cppc = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/8",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPPC"
-    );
-
-    lodgePolePine_cppj = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/9",
-      ["hectares", "objectid"],
-      "Lodgepole Pine CPPJ"
-    );
-    white_spruce_cppd1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/10",
-      ["hectares", "objectid"],
-      "White Spruce CPPD 1"
-    );
-
-    white_spruce_cppd = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/11",
-      ["hectares", "objectid"],
-      "White Spruce CPPD"
-    );
-
-    white_spruce_cppe1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/12",
-      ["hectares", "objectid"],
-      "White Spruce CPPE 1"
-    );
-
-    white_spruce_cppe2 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/13",
-      ["hectares", "objectid"],
-      "White Spruce CPPE 2"
-    );
-
-    white_spruce_cppe = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/14",
-      ["hectares", "objectid"],
-      "White Spruce CPPE"
-    );
-
-    white_spruce_cppg1 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/15",
-      ["hectares", "objectid"],
-      "White Spruce CPPG 1"
-    );
-
-    white_spruce_cppg2 = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/16",
-      ["hectares", "objectid"],
-      "White Spruce CPPG 2"
-    );
-
-    white_spruce_cpph = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/17",
-      ["hectares", "objectid"],
-      "White Spruce CPPH"
-    );
-
-    white_spruce_cppi = featureInit(
-      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250127/FeatureServer/18",
-      ["hectares", "objectid"],
-      "White Spruce CPPI"
-    );
-
-    map.add(blackSpruce_cpp1);
-    map.add(blackSpruce_cpp2);
-    map.add(blackSpruce_cpp3);
-    map.add(lodgePolePine_cpk1);
-    map.add(lodgePolePine_cppa);
-    map.add(lodgePolePine_cppb1);
-    map.add(lodgePolePine_cppb2);
-    map.add(lodgePolePine_cppc);
-    map.add(lodgePolePine_cppj);
-    map.add(white_spruce_cppd1);
-    map.add(white_spruce_cppd);
-    map.add(white_spruce_cppe1);
-    map.add(white_spruce_cppe2);
-    map.add(white_spruce_cppe);
-    map.add(white_spruce_cppg1);
-    map.add(white_spruce_cppg2);
-    map.add(white_spruce_cpph);
-    map.add(white_spruce_cppi);
-
-    blackSpruce_cpp1.visible = false;
-    blackSpruce_cpp2.visible = false;
-    blackSpruce_cpp3.visible = false;
-    lodgePolePine_cpk1.visible = false;
-    lodgePolePine_cppa.visible = false;
-    lodgePolePine_cppb1.visible = false;
-    lodgePolePine_cppb2.visible = false;
-    lodgePolePine_cppc.visible = false;
-    lodgePolePine_cppj.visible = false;
-    white_spruce_cppd1.visible = false;
-    white_spruce_cppd.visible = false;
-    white_spruce_cppe1.visible = false;
-    white_spruce_cppe2.visible = false;
-    white_spruce_cppe.visible = false;
-    white_spruce_cppg1.visible = false;
-    white_spruce_cppg2.visible = false;
-    white_spruce_cpph.visible = false;
-    white_spruce_cppi.visible = false;
-
-    // map.add(albertaFMA);
+    map.add(albertaFMA);
+    albertaFMA.visible = false;
 
 
 
@@ -424,9 +330,27 @@ define([
           weight: "bold"
         }
       },
-      labelPlacement: "always-horizontal",
       labelExpressionInfo: {
         expression: "$feature.seedzone"
+      }
+    };
+
+    const labelClass2 = {
+      // autocasts as new LabelClass()
+      symbol: {
+        type: "text",  // autocasts as new TextSymbol()
+        color: "white",
+        haloColor: "blue",
+        haloSize: 1,
+        font: {  // autocast as new Font()
+           family: "Ubuntu Mono",
+           size: 14,
+           weight: "bold"
+         }
+      },
+      labelPlacement: "always-horizontal",
+      labelExpressionInfo: {
+        expression: "$feature.nsrname"
       }
     };
 
@@ -456,9 +380,18 @@ define([
           console.log("suit");
           currentLayer.definitionExpression =
             "seedname in (" + modifiedSeednames + ")";
+          label_points.definitionExpression = "seedname in (" + modifiedSeednames + ")";
           currentLayer.popupTemplate = template;
-          currentLayer.labelingInfo = [labelClass];
+          labelClass.deconflictionStrategy = "none";
+
+          console.log(modifiedSeednames);
+          console.log(label_points)
+          // currentLayer.labelingInfo = [labelClass];
+          label_points.labelingInfo = [labelClass];
+          console.log("label_points", label_points.labelingInfo);
           map.add(currentLayer);
+          map.add(label_points);
+
         } catch (error) {
           console.log("error", error);
         }
