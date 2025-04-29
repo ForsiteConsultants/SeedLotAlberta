@@ -363,7 +363,7 @@ define([
           seednames = outlist[0].split(", ");
           // Step 2: Remove single quotes and first 3 characters
           modifiedSeednames = seednames.map((seedname) =>
-            seedname.replace(/'/g, "").slice(3)
+            seedname.replace(/'/g, "")
           );
 
           // convert back to a string
