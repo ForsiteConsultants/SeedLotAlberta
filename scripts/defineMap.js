@@ -443,10 +443,11 @@ define([
   }
 
   function updateSeedZoneLayer(BECLayer) {
-    let modifiedBECLayer = BECLayer.split(", ")
-      .map((seedname) => seedname.slice(3))
-      .join("', '");
-    modifiedBECLayer = "'" + modifiedBECLayer + "'";
+    console.log("BECLayer", BECLayer);
+    // let modifiedBECLayer = BECLayer.split(", ")
+    //   .map((seedname) => seedname.slice(3))
+    //   .join("', '");
+    let modifiedBECLayer = "'" + BECLayer + "'";
     seedzone_permanent.definitionExpression =
       "seedname in (" + modifiedBECLayer + ")";
     console.log(modifiedBECLayer);
