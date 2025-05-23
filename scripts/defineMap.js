@@ -65,7 +65,13 @@ define([
   var layerButton;
   var scaleBar, layerList;
   var activeWidget;
-  var currentLayer, current2019Layer, nonsuit2019Layer, spuLayer, muLayer, seedzone_permanent, label_points;
+  var currentLayer,
+    current2019Layer,
+    nonsuit2019Layer,
+    spuLayer,
+    muLayer,
+    seedzone_permanent,
+    label_points;
   var suitRenderer, nonSuitRenderer;
   var portalUrl = "https://www.arcgis.com";
 
@@ -91,9 +97,6 @@ define([
       color: [115, 76, 0, 1],
     },
   };
-
-
-
 
   /*
    * Initialize the map and all layers and functionality
@@ -153,7 +156,6 @@ define([
       addLegend();
       addScalebar();
       addMouseCoord();
-      
     });
   }
 
@@ -162,17 +164,17 @@ define([
   }
 
   function layerInit() {
-
     let currentLayer_renderer = {
-      type: "simple",  // autocasts as new SimpleRenderer()
+      type: "simple", // autocasts as new SimpleRenderer()
       symbol: {
-        type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-        color: [ 76, 0, 115, 0.5 ],
-        outline: {  // autocasts as new SimpleLineSymbol()
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [76, 0, 115, 0.5],
+        outline: {
+          // autocasts as new SimpleLineSymbol()
           width: 1,
-          color: "grey"
-        }
-      }
+          color: "grey",
+        },
+      },
     };
 
     const labelClass = {
@@ -184,14 +186,13 @@ define([
           // autocast as new Font()
           family: "Playfair Display",
           size: 12,
-          weight: "bold"
-        }
+          weight: "bold",
+        },
       },
       labelExpressionInfo: {
-        expression: "$feature.nsrname"
-      }
+        expression: "$feature.nsrname",
+      },
     };
-
 
     label_points = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/AB_Seedzone_LabelPoints/FeatureServer/0",
@@ -199,7 +200,6 @@ define([
       "Seedzone Label Points"
     );
     window.label_points = label_points;
-
 
     // label_points.definitionExpression = "seedzone in ('futBSA11')";
     label_points.labelingInfo = [labelClass];
@@ -214,8 +214,7 @@ define([
     );
 
     currentLayer.renderer = currentLayer_renderer;
-    
-    
+
     seedzone_permanent = featureInit(
       "https://maps.forsite.ca/server/rest/services/Hosted/seedzone/FeatureServer/1",
       ["seedname", "SHAPE_Area", "LABEL"],
@@ -223,15 +222,16 @@ define([
     );
 
     let renderer = {
-      type: "simple",  // autocasts as new SimpleRenderer()
+      type: "simple", // autocasts as new SimpleRenderer()
       symbol: {
-      type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-      color: [ 0, 0, 0, 0 ],  // no fill
-      outline: {  // autocasts as new SimpleLineSymbol()
-        width: 1,
-        color: "black"
-      }
-      }
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [0, 0, 0, 0], // no fill
+        outline: {
+          // autocasts as new SimpleLineSymbol()
+          width: 1,
+          color: "black",
+        },
+      },
     };
 
     seedzone_permanent.renderer = renderer;
@@ -251,30 +251,31 @@ define([
       "Alberta FMA"
     );
 
-    const cpp_layers = "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250312/FeatureServer"
+    const cpp_layers =
+      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250312/FeatureServer";
 
     const speciesCppList = [
       // Your cppLayerNames order:
-      "Jack pine-P1",        // P1
-      "Trembing-Aspen-AW1",   // A1
-      "Trembing-Aspen-AW2",   // A2
-      "Lodgepole pine-B1",   // B1
-      "Lodgepole pine-B2",   // B2
-      "Lodgepole pine-C",    // C
-      "Lodgepole pine-J",    // J
-      "Lodgepole pine-K1",   // K1
-      "Black spruce-L1",     // L1
-      "Black spruce-L2",     // L2
-      "Black spruce-L3",     // L3
-      "White spruce-D",      // D
-      "White spruce-D1",     // D1
-      "White spruce-E",      // E
-      "White spruce-E1",     // E1
-      "White spruce-E2",     // E2
-      "White spruce-G1",     // G1
-      "White spruce-G2",     // G2
-      "White spruce-H",      // H
-      "White spruce-I"       // I
+      "Jack pine-P1", // P1
+      "Trembing-Aspen-AW1", // A1
+      "Trembing-Aspen-AW2", // A2
+      "Lodgepole pine-B1", // B1
+      "Lodgepole pine-B2", // B2
+      "Lodgepole pine-C", // C
+      "Lodgepole pine-J", // J
+      "Lodgepole pine-K1", // K1
+      "Black spruce-L1", // L1
+      "Black spruce-L2", // L2
+      "Black spruce-L3", // L3
+      "White spruce-D", // D
+      "White spruce-D1", // D1
+      "White spruce-E", // E
+      "White spruce-E1", // E1
+      "White spruce-E2", // E2
+      "White spruce-G1", // G1
+      "White spruce-G2", // G2
+      "White spruce-H", // H
+      "White spruce-I", // I
     ];
 
     for (let i = 0; i < 19; i++) {
@@ -289,8 +290,6 @@ define([
 
     map.add(albertaFMA);
     albertaFMA.visible = false;
-
-
 
     map.add(albertaFMU);
     // turn off albertafmu
@@ -317,7 +316,6 @@ define([
     var seednames = [];
     var modifiedSeednames = [];
 
-    
     const labelClass = {
       // autocasts as new LabelClass()
       symbol: {
@@ -327,31 +325,32 @@ define([
           // autocast as new Font()
           family: "Playfair Display",
           size: 12,
-          weight: "bold"
-        }
+          weight: "bold",
+        },
       },
       labelExpressionInfo: {
-        expression: "$feature.seedzone"
-      }
+        expression: "$feature.seedzone",
+      },
     };
 
     const labelClass2 = {
       // autocasts as new LabelClass()
       symbol: {
-        type: "text",  // autocasts as new TextSymbol()
+        type: "text", // autocasts as new TextSymbol()
         color: "white",
         haloColor: "blue",
         haloSize: 1,
-        font: {  // autocast as new Font()
-           family: "Ubuntu Mono",
-           size: 14,
-           weight: "bold"
-         }
+        font: {
+          // autocast as new Font()
+          family: "Ubuntu Mono",
+          size: 14,
+          weight: "bold",
+        },
       },
       labelPlacement: "always-horizontal",
       labelExpressionInfo: {
-        expression: "$feature.nsrname"
-      }
+        expression: "$feature.nsrname",
+      },
     };
 
     if (outlist[0].length != 0) {
@@ -380,18 +379,18 @@ define([
           console.log("suit");
           currentLayer.definitionExpression =
             "seedname in (" + modifiedSeednames + ")";
-          label_points.definitionExpression = "seedname in (" + modifiedSeednames + ")";
+          label_points.definitionExpression =
+            "seedname in (" + modifiedSeednames + ")";
           currentLayer.popupTemplate = template;
           labelClass.deconflictionStrategy = "none";
 
           console.log(modifiedSeednames);
-          console.log(label_points)
+          console.log(label_points);
           // currentLayer.labelingInfo = [labelClass];
           label_points.labelingInfo = [labelClass];
           console.log("label_points", label_points.labelingInfo);
           map.add(currentLayer);
           map.add(label_points);
-
         } catch (error) {
           console.log("error", error);
         }
@@ -444,13 +443,15 @@ define([
   }
 
   function updateSeedZoneLayer(BECLayer) {
-    let modifiedBECLayer = BECLayer.split(", ").map((seedname) => seedname.slice(3)).join("', '");
+    let modifiedBECLayer = BECLayer.split(", ")
+      .map((seedname) => seedname.slice(3))
+      .join("', '");
     modifiedBECLayer = "'" + modifiedBECLayer + "'";
-    seedzone_permanent.definitionExpression = "seedname in (" + modifiedBECLayer + ")";
+    seedzone_permanent.definitionExpression =
+      "seedname in (" + modifiedBECLayer + ")";
     console.log(modifiedBECLayer);
     map.add(seedzone_permanent);
   }
-
 
   function displaySPU(SPLayer) {
     // spuLayer.definitionExpression = "Seedlot = " + SPLayer;
@@ -487,6 +488,44 @@ define([
 
   function clearLyrs() {
     map.layers.removeAll();
+
+    const cpp_layers =
+      "https://maps.forsite.ca/server/rest/services/Hosted/CPP_20250312/FeatureServer";
+
+    const speciesCppList = [
+      // Your cppLayerNames order:
+      "Jack pine-P1", // P1
+      "Trembing-Aspen-AW1", // A1
+      "Trembing-Aspen-AW2", // A2
+      "Lodgepole pine-B1", // B1
+      "Lodgepole pine-B2", // B2
+      "Lodgepole pine-C", // C
+      "Lodgepole pine-J", // J
+      "Lodgepole pine-K1", // K1
+      "Black spruce-L1", // L1
+      "Black spruce-L2", // L2
+      "Black spruce-L3", // L3
+      "White spruce-D", // D
+      "White spruce-D1", // D1
+      "White spruce-E", // E
+      "White spruce-E1", // E1
+      "White spruce-E2", // E2
+      "White spruce-G1", // G1
+      "White spruce-G2", // G2
+      "White spruce-H", // H
+      "White spruce-I", // I
+    ];
+
+    for (let i = 0; i < 19; i++) {
+      let layer = featureInit(
+        `${cpp_layers}/${i}`,
+        ["hectares", "objectid"],
+        `${speciesCppList[i]}`
+      );
+      map.add(layer);
+      layer.visible = false;
+    }
+
     map.add(albertaFMU);
     // map.add(albertaFMA);
   }
@@ -507,7 +546,6 @@ define([
       title: "KML Sample",
     });
   }
-
 
   // Initialize a feature layer with definition query and custom renderer
   function featureInit_complex(src, expression, name, renderer) {
