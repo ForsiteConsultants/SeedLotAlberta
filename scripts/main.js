@@ -290,20 +290,18 @@ define(function () {
   }
 
   function populateGenSuitThresholdList() {
-
     let data = new Promise((resolve, reject) => {
       var test_data;
 
       // manually add in a threshold of 0.9
       const temp = document.createElement("option");
-      temp.label = 0.900;
-      temp.value = 0.900;
+      temp.label = 0.9;
+      temp.value = 0.9;
       temp.innerHTML = temp.label;
       temp.selected = true;
       document.getElementById("cutblockInput").options.add(temp);
-      
 
-      for (var i = 0.995; i > 0.845; i-=0.005) {
+      for (var i = 0.995; i > 0.845; i -= 0.005) {
         const temp = document.createElement("option");
         temp.label = i.toFixed(3);
         temp.value = i;
@@ -313,14 +311,13 @@ define(function () {
       }
 
       const temp2 = document.createElement("option");
-      temp2.label = 0.900;
-      temp2.value = 0.900;
+      temp2.label = 0.9;
+      temp2.value = 0.9;
       temp2.innerHTML = temp2.label;
       temp2.selected = true;
       document.getElementById("seedLotInput").options.add(temp2);
 
-
-      for (var i = 0.995; i > 0.845; i-=0.005) {
+      for (var i = 0.995; i > 0.845; i -= 0.005) {
         const temp2 = document.createElement("option");
         temp2.label = i.toFixed(3);
         temp2.value = i;
@@ -330,14 +327,10 @@ define(function () {
 
       resolve(test_data);
     });
-
   }
-
 
   // adds all the options to the Species and BEC Variant dropdowns
   function fillSelects() {
-
-
     let data = new Promise((resolve, reject) => {
       var test_data;
       var speciesStore_json = "scripts/min_gen_suit_11.json";
@@ -370,7 +363,6 @@ define(function () {
           document.getElementById("becInputCutblock").options.add(temp);
           document.getElementById("becInputSeedlot").options.add(temp3);
         }
-        
       });
 
       $.getJSON(speciesStore_json, function (data) {
@@ -396,9 +388,8 @@ define(function () {
           document.getElementById("speciesInputSeedlot").options.add(temp4);
         }
 
-      $("select").selectpicker();
-      $(".selectpicker").selectpicker("refresh");
-
+        $("select").selectpicker();
+        $(".selectpicker").selectpicker("refresh");
       });
 
       resolve(test_data);
@@ -417,14 +408,14 @@ define(function () {
       // option.value = "Version_7_0";
       // option.innerHTML = option.label;
       // document.getElementById("genSuitLists").options.add(option);
-      
+
       // var option = document.createElement("option");
       // option.label = "Version 8";
       // option.value = "Version_8_0";
       // option.innerHTML = option.label;
       // document.getElementById("genSuitLists").options.add(option);
 
-      for (var i = 2025; i < 2056; i+=10) {
+      for (var i = 2025; i < 2056; i += 10) {
         var option = document.createElement("option");
         option.label = i;
         option.value = i;
@@ -432,7 +423,7 @@ define(function () {
         document.getElementById("genSuitLists").options.add(option);
       }
 
-      for (var i = 2025; i < 2056; i+=10) {
+      for (var i = 2025; i < 2056; i += 10) {
         var option = document.createElement("option");
         option.label = i;
         option.value = i;
@@ -440,14 +431,12 @@ define(function () {
         document.getElementById("seed_genSuitLists").options.add(option);
       }
 
-
-
       // var option2 = document.createElement("option");
       // option2.label = "Version 7";
       // option2.value = "Version_7_0";
       // option2.innerHTML = option2.label;
       // document.getElementById("seed_genSuitLists").options.add(option2);
-      
+
       // var option2 = document.createElement("option");
       // option2.label = "Version 8";
       // option2.value = "Version_8_0";
@@ -461,7 +450,7 @@ define(function () {
 
       resolve(test_data);
     });
-   }
+  }
 
   function returnBecId(bec_name) {
     console.log(bec_name);
@@ -470,15 +459,16 @@ define(function () {
 
   // create the paths and locations for the selected cutblock and species
   function addSuitabilityLayerCutblock(sp, bec, suit, folder) {
-
     console.log(folder);
 
     jsontxt =
-      "byyear/" + folder + "/" +
+      "byyear/" +
+      folder +
+      "/" +
       sp.charAt(0).toUpperCase() +
       sp.slice(1).toLowerCase() +
       "_migrated_height_list_5.json";
-    jsonseedlot = "byyear/" + folder  +"/AB_seedlots_ver3.json";
+    jsonseedlot = "byyear/" + folder + "/AB_seedlots_ver3.json";
 
     console.log(sp);
     // let suit = speciesStore.find((x) => x.name === sp).minsuit;
@@ -534,11 +524,11 @@ define(function () {
             }
 
             updateData(results).then(function (data) {
-                console.log(data);
-                var temp_data = JSON.parse(JSON.stringify(data)); // Create a deep copy of the data array
-                populateCutblockTable(temp_data); // Pass the copy to the function
-                console.log(data); // Original data remains unchanged
-                getSeedLot(bec, suit, 0, jsonseedlot, sp, data); // Pass the original data
+              console.log(data);
+              var temp_data = JSON.parse(JSON.stringify(data)); // Create a deep copy of the data array
+              populateCutblockTable(temp_data); // Pass the copy to the function
+              console.log(data); // Original data remains unchanged
+              getSeedLot(bec, suit, 0, jsonseedlot, sp, data); // Pass the original data
             });
 
             // ========= SUITABLE OUTPUT ======================
@@ -764,8 +754,10 @@ define(function () {
           if (finalarray[i].GW == "") {
             finalarray[i].GW = 0;
           }
-          finalarray[i].seedzone = finalarray[i].seedzone.slice(0, finalarray[i].seedzone.length-1) + "." + finalarray[i].seedzone.slice(-1);
-
+          finalarray[i].seedzone =
+            finalarray[i].seedzone.slice(0, finalarray[i].seedzone.length - 1) +
+            "." +
+            finalarray[i].seedzone.slice(-1);
         }
       } else {
         console.log("Multiple items selected");
@@ -793,8 +785,13 @@ define(function () {
             if (finalarray[i].GW == "") {
               finalarray[i].GW = 0;
             }
-            finalarray[i].seedzone = finalarray[i].seedzone.slice(0, finalarray[i].seedzone.length-1) + "." + finalarray[i].seedzone.slice(-1);
-
+            finalarray[i].seedzone =
+              finalarray[i].seedzone.slice(
+                0,
+                finalarray[i].seedzone.length - 1
+              ) +
+              "." +
+              finalarray[i].seedzone.slice(-1);
           }
         });
       }
@@ -821,16 +818,20 @@ define(function () {
   function populateSeedlotTable(results) {
     // adding all the data to the bootstrap table
 
-
     console.log(results);
 
     // round the htp_pred values to 3 decimal places
     for (var i = 0; i < results.length; i++) {
-        // Add a decimal between the first and second number
-        results[i].BECvar_seed = results[i].BECvar_seed.slice(0, results[i].BECvar_seed.length-1) + "." + results[i].BECvar_seed.slice(-1);
-        results[i].BECvar_site = results[i].BECvar_site.slice(0, results[i].BECvar_site.length-1) + "." + results[i].BECvar_site.slice(-1);
-      }    
-
+      // Add a decimal between the first and second number
+      results[i].BECvar_seed =
+        results[i].BECvar_seed.slice(0, results[i].BECvar_seed.length - 1) +
+        "." +
+        results[i].BECvar_seed.slice(-1);
+      results[i].BECvar_site =
+        results[i].BECvar_site.slice(0, results[i].BECvar_site.length - 1) +
+        "." +
+        results[i].BECvar_site.slice(-1);
+    }
 
     table = $("#seed").DataTable({
       scrollY: "300px",
@@ -853,7 +854,6 @@ define(function () {
         } else {
           data[i].Sp_suit_seed = "Not Suitable";
         }
-
       }
       resolve(data);
     });
@@ -862,13 +862,18 @@ define(function () {
   }
 
   function populateCutblockTable(results) {
-    
     // round the htp_pred values to 3 decimal places
     for (var i = 0; i < results.length; i++) {
       results[i].HTp_pred = Math.round(results[i].HTp_pred * 1000) / 1000;
       // Add a decimal between the first and second number
-      results[i].BECvar_seed = results[i].BECvar_seed.slice(0, results[i].BECvar_seed.length-1) + "." + results[i].BECvar_seed.slice(-1);
-      results[i].BECvar_site = results[i].BECvar_site.slice(0, results[i].BECvar_site.length-1) + "." + results[i].BECvar_site.slice(-1);
+      results[i].BECvar_seed =
+        results[i].BECvar_seed.slice(0, results[i].BECvar_seed.length - 1) +
+        "." +
+        results[i].BECvar_seed.slice(-1);
+      results[i].BECvar_site =
+        results[i].BECvar_site.slice(0, results[i].BECvar_site.length - 1) +
+        "." +
+        results[i].BECvar_site.slice(-1);
     }
 
     $("#cutblock_table").DataTable({
@@ -887,15 +892,18 @@ define(function () {
   function addSuitabilityLayerSeedlot(sp, bec, suit, folder) {
     console.log("Seedlot Go button. Species: " + sp + " BEC: " + bec);
     jsontxt =
-      "byyear/" + folder + "/" +
+      "byyear/" +
+      folder +
+      "/" +
       sp.charAt(0).toUpperCase() +
-      sp.slice(1).toLowerCase() +
+      sp.slice(1).toUpperCase() +
       "_migrated_height_list_5.json";
     // jsonseedlot = "Version_7_0/" + sp.charAt(0).toUpperCase() + sp.slice(1) + "_Seedlots.json";
     // let suit = speciesStore.find((x) => x.name === sp).minsuit;
     //        loadgridSeed(sp, suit, 0, jsontxt, jsontxt2019);
 
     // suit = suit / 100;
+    console.log(jsontxt);
     console.log(suit);
 
     spmin = 0;
@@ -923,8 +931,8 @@ define(function () {
         console.log(results);
 
         updateData(results).then(function (data) {
-            var temp_data = JSON.parse(JSON.stringify(data)); // Create a deep copy of the data array
-            populateSeedlotTable(temp_data); // Pass the copy to the function
+          var temp_data = JSON.parse(JSON.stringify(data)); // Create a deep copy of the data array
+          populateSeedlotTable(temp_data); // Pass the copy to the function
         });
 
         // 1 means the area is suitable and 0 means it is not a suitable area
@@ -976,8 +984,8 @@ define(function () {
 
   function populateSeedlot(orch, folder) {
     console.log("Seedlot top button. Value entered " + orch);
-    jsonorch =  "byyear/" + folder  +  "/" + "Orchard_list.json";
-    jsonseed = "byyear/" + folder  + "/" + "Seedlot_list.json";
+    jsonorch = "byyear/" + folder + "/" + "Orchard_list.json";
+    jsonseed = "byyear/" + folder + "/" + "Seedlot_list.json";
     results = "";
 
     $.getJSON(jsonorch, function (orch_data) {
@@ -1101,8 +1109,4 @@ define(function () {
       });
     });
   }
-
-  
-
-
 });
