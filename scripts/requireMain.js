@@ -4,14 +4,13 @@ require([
   "esri/tasks/support/Query",
   "esri/layers/GeoJSONLayer",
 ], function (defineMap, main) {
-
   main.fillSelects();
   main.populateGenSuitList();
   main.populateGenSuitThresholdList();
 
   defineMap.mapInit();
   var selected = [];
-  
+
   $("#becInputCutblock").on(
     "changed.bs.select",
     function (e, clickedIndex, isSelected, previousValue) {
@@ -30,9 +29,9 @@ require([
     .getElementById("addButtonCutblock")
     .addEventListener("click", function () {
       // defineMap.clearLyrs();
-      
+
       var suit = document.getElementById("cutblockInput").value;
-      if (suit === "" || suit === null || suit === undefined || (isNaN(suit))) {
+      if (suit === "" || suit === null || suit === undefined || isNaN(suit)) {
         alert("Please enter a cutblock number");
         return;
       }
@@ -48,10 +47,10 @@ require([
         .then((layers) => {
           console.log(layers);
           defineMap.updateLayer(layers, "cutblock");
-          defineMap.updateSeedZoneLayer(main.returnBecId(document.getElementById("becInputCutblock").value));
+          defineMap.updateSeedZoneLayer(
+            main.returnBecId(document.getElementById("becInputCutblock").value)
+          );
         });
-      
-
     });
 
   // Go button "I have a Seedlot" tab
@@ -65,12 +64,13 @@ require([
           document.getElementById("becInputSeedlot").value,
           document.getElementById("seedLotInput").value,
           document.getElementById("seed_genSuitLists").value
-
         )
         .then((layers) => {
           defineMap.updateLayer(layers, "seedlot");
           console.log(layers);
-          defineMap.updateSeedZoneLayer(main.returnBecId(document.getElementById("becInputSeedlot").value));
+          defineMap.updateSeedZoneLayer(
+            main.returnBecId(document.getElementById("becInputSeedlot").value)
+          );
         });
     });
 
@@ -82,9 +82,9 @@ require([
 });
 
 function removeOptions(selectElement) {
-  var i, L = selectElement.options.length - 1;
-  for(i = L; i >= 0; i--) {
-     selectElement.remove(i);
+  var i,
+    L = selectElement.options.length - 1;
+  for (i = L; i >= 0; i--) {
+    selectElement.remove(i);
   }
 }
-
