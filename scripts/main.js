@@ -263,6 +263,13 @@ define(function () {
     { name: "SA32", id: 221 },
   ];
 
+  // Event listener for orchard tab
+  $(document).ready(function () {
+    $("#orchard-tab").on("shown.bs.tab", function (e) {
+      loadOrchardData();
+    });
+  });
+
   return {
     fillSelects: fillSelects,
     addSuitabilityLayerCutblock: addSuitabilityLayerCutblock,
@@ -274,6 +281,7 @@ define(function () {
     populateGenSuitList: populateGenSuitList,
     returnBecId: returnBecId,
     populateGenSuitThresholdList: populateGenSuitThresholdList,
+    loadOrchardData: loadOrchardData,
   };
 
   function filterUniqueByColumn(data, column) {
@@ -1107,6 +1115,43 @@ define(function () {
           results[0].Species;
         $("select").selectpicker("refresh");
       });
+    });
+  }
+
+  // Function to load orchard data from CSV file
+  function loadOrchardData() {
+    $.ajax({
+      url: "AB orchards.csv",
+      dataType: "text",
+      success: function (data) {
+        var orchardData = [];
+        var rows = data.split("\n");
+
+        // Skip header row and parse CSV data
+        for (var i = 1; i < rows.length; i++) {
+          var cells = rows[i].split(",");
+          if (cells.length >= 3 && cells[0].trim() !== "") {
+            orchardData.push({
+              SPECIES: cells[0],
+              ORCHARD: cells[1],
+              SEEDZONE: cells[2],
+            });
+          }
+        }
+
+        // Initialize DataTable with the CSV data
+        $("#orchard_table").DataTable({
+          scrollY: "400px",
+          paging: false,
+          destroy: true,
+          data: orchardData,
+          columns: [
+            { data: "SPECIES" },
+            { data: "ORCHARD" },
+            { data: "SEEDZONE" },
+          ],
+        });
+      },
     });
   }
 });

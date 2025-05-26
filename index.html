@@ -116,6 +116,10 @@
                             <button class="nav-link" id="versions-tab" data-bs-toggle="tab" data-bs-target="#versions"
                                 type="button" role="tab" aria-controls="versions" aria-selected="false">Version</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="orchard-tab" data-bs-toggle="tab" data-bs-target="#orchard"
+                                type="button" role="tab" aria-controls="orchard" aria-selected="false">Orchard</button>
+                        </li>
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
@@ -356,6 +360,22 @@
                             </ol>
                         </div>
 
+                        <div title="Orchard" id="orchard" class="card-body tab-pane fade" role="tabpanel"
+                            aria-labelledby="orchard-tab">
+                            <h5 class="card-title">Alberta Orchards</h5>
+                            <p>This table shows information about Alberta seed orchards.</p>
+                            <div class="">
+                                <table id="orchard_table" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="SPECIES" data-sortable="true">Species</th>
+                                            <th data-field="ORCHARD" data-sortable="true">Orchard</th>
+                                            <th data-field="SEEDZONE" data-sortable="true">Seed Zone</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
