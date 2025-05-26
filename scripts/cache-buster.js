@@ -2,6 +2,7 @@
  * Cache-buster for SeedLot Alberta application
  * This script helps prevent browser caching issues when delivering updates to the client
  */
+ 
 
 // Generate a unique version number based on current timestamp
 var version = new Date().getTime();
